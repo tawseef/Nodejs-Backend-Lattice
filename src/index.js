@@ -1,17 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+require("dotenv").config();
+const mongoose = require('mongoose');
+const app = require("./app");
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+app.listen(process.env.PORT, ()=>{
+  console.log(`Listening to ${process.env.PORT}`);
+})
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+mongoose.connect(process.env.MONGODB_URI).then(()=>{
+  console.log("Connected To MongoDB");
+}).catch((error)=> console.log("Not Connected To DB--", error))
